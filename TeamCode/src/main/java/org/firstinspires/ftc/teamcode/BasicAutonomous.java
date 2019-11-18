@@ -1,13 +1,14 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 /*
  * Created by Chun on 11/4/19 for 10023.
  */
 
 @Autonomous
-//@Disabled
+@Disabled
 
 public class BasicAutonomous extends BaseRobot {
     private int stage = 0;

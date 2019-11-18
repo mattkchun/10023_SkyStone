@@ -32,7 +32,7 @@ public class BaseRobot extends OpMode {
         reset_arm_encoder();
         reset_foundation_encoder();
         skystoneSensor.enableLed(true);
-        armServo.setPower(ConstantVariables.K_ARM_SERVO_OPEN);
+        //armServo.setPower(ConstantVariables.K_ARM_SERVO_OPEN);
     }
 
     @Override
@@ -119,16 +119,16 @@ public class BaseRobot extends OpMode {
      */
 
     public boolean auto_drive(double power, double inches) {
-        double TARGET_ENC = ConstantVariables.K_PPIN_DRIVE * inches;
+        double TARGET_ENC = ConstantVariables.K_PPIN_DRIVE * inches * 1.414;
         telemetry.addData("Target_enc: ", TARGET_ENC);
         double left_speed = power;
         double right_speed = power;
-        double error = get_motor_enc(rightFrontDriveMotor) + get_motor_enc(leftFrontDriveMotor);
+        //double error = get_motor_enc(rightFrontDriveMotor) + get_motor_enc(leftFrontDriveMotor);
         //positive means right turned more, negative means left turned more
 
-        error /= ConstantVariables.K_DRIVE_ERROR_P;
-        left_speed += error;
-        right_speed -= error;
+        //error /= ConstantVariables.K_DRIVE_ERROR_P;
+        //left_speed += error;
+        //right_speed -= error;
 
         left_speed *= -1; //left motors turn opposite directions
 
@@ -177,14 +177,14 @@ public class BaseRobot extends OpMode {
 
         double front_speed = power;
         double back_speed = power;
-        double error = get_motor_enc(leftFrontDriveMotor) + get_motor_enc(leftBackDriveMotor);
+        //double error = get_motor_enc(leftFrontDriveMotor) + get_motor_enc(leftBackDriveMotor);
         //positive means front turned more, negative means back turned more
 
-        error /= ConstantVariables.K_DRIVE_ERROR_P;
-        front_speed -= error;
-        back_speed += error;
+        //error /= ConstantVariables.K_DRIVE_ERROR_P;
+        //front_speed -= error;
+        //back_speed += error;
 
-        back_speed *= -1; //left motors turn opposite directions
+        front_speed *= -1; //front motors turn opposite directions
 
         front_speed = Range.clip(front_speed, -1, 1);
         back_speed = Range.clip(back_speed, -1, 1);
@@ -246,11 +246,6 @@ public class BaseRobot extends OpMode {
 
     public boolean checkBlack(int red, int blue) {
         return blue > (3.0/4)*red;
-//        if (blue > (3.0/4)*red)
-//            certainty++;
-//        else
-//            certainty = 0;
-//        return certainty>3;
     }
 
     public void reset_all_encoders() {

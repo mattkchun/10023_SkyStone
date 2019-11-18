@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 /*
@@ -7,11 +8,13 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
  */
 
 @TeleOp
+@Disabled
 
 public class MainTeleOp extends BaseRobot {
     @Override
     public void init() {
         super.init();
+        gamepad1.setJoystickDeadzone(0.1f);
     }
 
     @Override
@@ -30,8 +33,8 @@ public class MainTeleOp extends BaseRobot {
         //arm
         if(gamepad1.right_bumper)
             arm(-0.7);
-        else if (gamepad1.left_bumper)
-            arm(0.7);
+        else if (gamepad1.right_trigger>0.1)
+            arm(pow(gamepad1.right_trigger,2));
         else
             arm(0);
 

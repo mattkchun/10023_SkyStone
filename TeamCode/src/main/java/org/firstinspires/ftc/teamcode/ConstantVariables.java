@@ -19,5 +19,5 @@ public class ConstantVariables {
     public static final double K_PPTURN_DRIVE = K_PPIN_DRIVE * K_TURN_CIRCUMFERENCE;
     public static final double K_PPDEG_DRIVE = K_PPTURN_DRIVE / 360;
 
-    public static final double K_DRIVE_ERROR_P = 250; // higher = less sensitive
+    public static final double K_DRIVE_ERROR_P = 500; // higher = less sensitive
 }

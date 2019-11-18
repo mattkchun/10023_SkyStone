@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 @Autonomous
 //@Disabled
 
-public class ScanLeftAutonomous extends BaseRobot {
+public class ScanRightAutonomous extends BaseRobot {
     private int stage = 0;
     private double inchesMoved = 0;
     private boolean second = false;
@@ -44,23 +44,23 @@ public class ScanLeftAutonomous extends BaseRobot {
                 break;
             case 1:
                 //drive to touch wall
-                if (auto_drive(-0.7, 20)) {
+                if (auto_drive(0.7, 20)) {
                     reset_drive_encoders();
                     stage++;
                 }
                 break;
             case 2:
                 //horizontal right to blocks (until close enough to scan color)
-                if (auto_horizontal(0.3, 18) || skystoneSensor.red()>260) {
+                if (auto_horizontal(0.3, 18) || skystoneSensor.blue()>160) {
                     drive(0,0,0,0);
                     reset_drive_encoders();
                     stage++;
                 }
                 break;
             case 3:
-                //drive forward (scanning for the black skystone)
+                //drive backward (scanning for the black skystone)
                 //power 0.22, inches 40
-                if (auto_drive(0.22, 20) || (checkBlack(skystoneSensor.red(),skystoneSensor.blue()) && (!second || skystoneSensor.blue()>160))) {
+                if (auto_drive(-0.15, 20) || (checkBlack(skystoneSensor.red(),skystoneSensor.blue()) && (!second || skystoneSensor.blue()>160))) {
                     drive(0,0,0,0);
                     double avgEnc = 1.0*(Math.abs(get_motor_enc(leftFrontDriveMotor)) + Math.abs(get_motor_enc(rightFrontDriveMotor)))/2;
                     inchesMoved = avgEnc/(ConstantVariables.K_PPIN_DRIVE * 1.414);
@@ -88,7 +88,7 @@ public class ScanLeftAutonomous extends BaseRobot {
             case 6:
                 //wait for arm to lower then horizontal left away from skystones
                 if (timer.time() > 0.3) {
-                    if (auto_horizontal(-0.7, 8)) {
+                    if (auto_horizontal(-0.7, 12)) {
                         reset_drive_encoders();
                         if (second)
                             stage = 11;
@@ -99,7 +99,7 @@ public class ScanLeftAutonomous extends BaseRobot {
                 break;
             case 7:
                 //drive to construction side
-                if (auto_drive(0.8, dropOff - inchesMoved)) {
+                if (auto_drive(-0.9, dropOff - inchesMoved)) {
                     reset_drive_encoders();
                     stage++;
                 }
@@ -121,7 +121,7 @@ public class ScanLeftAutonomous extends BaseRobot {
                 break;
             case 10:
                 //drive back to quarry
-                if (auto_drive(-1, dropOff - 10)) {
+                if (auto_drive(1, dropOff - 10)) {
                     reset_drive_encoders();
                     second = true;
                     stage = 1;
@@ -129,7 +129,7 @@ public class ScanLeftAutonomous extends BaseRobot {
                 break;
             case 11:
                 //drive to construction side again
-                if (auto_drive(0.8, dropOff - 5 - inchesMoved)) {
+                if (auto_drive(-0.9, dropOff - 5 - inchesMoved)) {
                     reset_drive_encoders();
                     stage++;
                 }
@@ -151,14 +151,14 @@ public class ScanLeftAutonomous extends BaseRobot {
                 break;
             case 14:
                 //turn to angle inwards
-                if (auto_turn(-0.5,15)) {
+                if (auto_turn(0.5,15)) {
                     reset_drive_encoders();
                     stage++;
                 }
                 break;
             case 15:
                 //drive back to under bridge
-                if (auto_drive(-1, 8)) {
+                if (auto_drive(1, 8)) {
                     reset_drive_encoders();
                     stage++;
                 }
